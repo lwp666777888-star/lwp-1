@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC急救助手</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PC急救助手</h1>
+        </header>
+        
+        <main id="main-content">
+            <!-- 首页：选择故障现象 -->
+            <div id="home-page" class="page active">
+                <h2>您的电脑遇到了什么问题？</h2>
+                <div class="options">
+                    <button class="option-btn" data-issue="boot">💻 不开机、不通电</button>
+                    <button class="option-btn" data-issue="blue-screen">🟦 蓝屏（BSOD）</button>
+                    <button class="option-btn" data-issue="slow">🐢 运行卡顿、反应慢</button>
+                    <button class="option-btn" data-issue="internet">🌐 无法上网</button>
+                    <button class="option-btn" data-issue="audio">🔊 没有声音</button>
+                    <button class="option-btn" data-issue="heat">🔥 电脑过热、噪音大</button>
+                    <button class="option-btn" data-issue="other">📝 其他问题</button>
+                </div>
+            </div>
+
+            <!-- 蓝屏问题细分页面 -->
+            <div id="bsod-page" class="page">
+                <h2>关于蓝屏，请告诉我更多细节：</h2>
+                <div class="options">
+                    <button class="option-btn" data-bsod-detail="random">频繁随机蓝屏（无规律发生）</button>
+                    <button class="option-btn" data-bsod-detail="software">在运行特定软件或游戏时蓝屏</button>
+                    <button class="option-btn" data-bsod-detail="driver">在安装新硬件或驱动后开始蓝屏</button>
+                    <button class="option-btn" data-bsod-detail="code">蓝屏代码是：______</button>
+                    <button class="option-btn" data-bsod-detail="unsure">我不确定，就是偶尔蓝屏</button>
+                    <button class="back-btn">返回上一页</button>
+                </div>
+            </div>
+
+            <!-- 运行卡顿问题细分页面 -->
+            <div id="slow-page" class="page">
+                <h2>关于运行卡顿，请告诉我更多细节：</h2>
+                <div class="options">
+                    <button class="option-btn" data-slow-detail="startup-slow">开机速度很慢</button>
+                    <button class="option-btn" data-slow-detail="program-slow">打开软件很慢</button>
+                    <button class="option-btn" data-slow-detail="system-slow">整个系统都很慢</button>
+                    <button class="back-btn">返回上一页</button>
+                </div>
+            </div>
+
+            <!-- 无法上网问题细分页面 -->
+            <div id="internet-page" class="page">
+                <h2>关于网络连接，请告诉我更多细节：</h2>
+                <div class="options">
+                    <button class="option-btn" data-internet-detail="wifi-issue">WiFi连接问题</button>
+                    <button class="option-btn" data-internet-detail="ethernet-issue">网线连接问题</button>
+                    <button class="option-btn" data-internet-detail="browser-issue">浏览器无法打开网页</button>
+                    <button class="back-btn">返回上一页</button>
+                </div>
+            </div>
+
+            <!-- 没有声音问题细分页面 -->
+            <div id="audio-page" class="page">
+                <h2>关于声音问题，请告诉我更多细节：</h2>
+                <div class="options">
+                    <button class="option-btn" data-audio-detail="no-audio">完全没有声音</button>
+                    <button class="option-btn" data-audio-detail="distorted-audio">声音断断续续或失真</button>
+                    <button class="option-btn" data-audio-detail="wrong-output">声音从错误的设备输出</button>
+                    <button class="back-btn">返回上一页</button>
+                </div>
+            </div>
+
+            <!-- 电脑过热问题细分页面 -->
+            <div id="heat-page" class="page">
+                <h2>关于过热问题，请告诉我更多细节：</h2>
+                <div class="options">
+                    <button class="option-btn" data-heat-detail="cpu-heat">CPU温度过高</button>
+                    <button class="option-btn" data-heat-detail="gpu-heat">显卡温度过高</button>
+                    <button class="option-btn" data-heat-detail="noise">风扇噪音很大</button>
+                    <button class="back-btn">返回上一页</button>
+                </div>
+            </div>
+
+            <!-- 不开机问题细分页面 -->
+            <div id="boot-page" class="page">
+                <h2>关于不开机问题，请告诉我更多细节：</h2>
+                <div class="options">
+                    <button class="option-btn" data-boot-detail="no-power">完全没反应，指示灯也不亮</button>
+                    <button class="option-btn" data-boot-detail="fan-run">风扇转动但显示器没信号</button>
+                    <button class="option-btn" data-boot-detail="beep">有报警声（嘀嘀声）</button>
+                    <button class="option-btn" data-boot-detail="logo-stuck">卡在品牌Logo界面</button>
+                    <button class="back-btn">返回上一页</button>
+                </div>
+            </div>
+
+            <!-- 其他问题细分页面 -->
+            <div id="other-page" class="page">
+                <h2>请描述您遇到的具体问题：</h2>
+                <div class="options">
+                    <button class="option-btn" data-other-detail="hardware">疑似硬件问题</button>
+                    <button class="option-btn" data-other-detail="software">疑似软件问题</button>
+                    <button class="option-btn" data-other-detail="unclear">不确定具体原因</button>
+                    <button class="back-btn">返回上一页</button>
+                </div>
+            </div>
+
+            <!-- 诊断流程页面 -->
+            <div id="diagnosis-page" class="page">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div id="step-content">
+                    <!-- 步骤内容将通过JavaScript动态加载 -->
+                </div>
+                <button class="back-btn">返回上一页</button>
+            </div>
+
+            <!-- 最终结果页面 -->
+            <div id="result-page" class="page">
+                <h2>诊断总结</h2>
+                <div id="result-content">
+                    <!-- 结果内容将通过JavaScript动态加载 -->
+                </div>
+                <div class="actions">
+                    <button class="back-btn">返回首页</button>
+                    <button class="share-btn">分享诊断结果</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

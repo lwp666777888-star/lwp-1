@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC急救助手 - 测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .test-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .test-button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PC急救助手 - 功能测试</h1>
+    
+    <div class="test-section">
+        <h2>文件完整性测试</h2>
+        <button class="test-button" onclick="testFiles()">检查必需文件</button>
+        <div id="file-test-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>JavaScript功能测试</h2>
+        <button class="test-button" onclick="testJS()">测试JavaScript功能</button>
+        <div id="js-test-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>诊断流程测试</h2>
+        <button class="test-button" onclick="testDiagnosis('bsod')">测试蓝屏诊断</button>
+        <button class="test-button" onclick="testDiagnosis('slow')">测试卡顿诊断</button>
+        <button class="test-button" onclick="testDiagnosis('internet')">测试网络诊断</button>
+        <button class="test-button" onclick="testDiagnosis('audio')">测试音频诊断</button>
+        <button class="test-button" onclick="testDiagnosis('heat')">测试过热诊断</button>
+        <button class="test-button" onclick="testDiagnosis('boot')">测试开机诊断</button>
+        <div id="diagnosis-test-result" class="result"></div>
+    </div>
+
+    <script>
+        function testFiles() {
+            const files = ['index.html', 'styles.css', 'app.js', 'decision-tree.json'];
+            const results = [];
+            
+            files.forEach(file => {
+                try {
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('HEAD', file, false);
+                    xhr.send();
+                    if (xhr.status === 200) {
+                        results.push(`✓ ${file} 存在`);
+                    } else {
+                        results.push(`✗ ${file} 不存在`);
+                    }
+                } catch (e) {
+                    results.push(`✗ ${file} 检查失败: ${e.message}`);
+                }
+            });
+            
+            document.getElementById('file-test-result').innerHTML = results.join('<br>');
+        }
+        
+        function testJS() {
+            const results = [];
+            
+            // 检查关键函数是否存在
+            if (typeof showPage === 'function') {
+                results.push('✓ showPage 函数存在');
+            } else {
+                results.push('✗ showPage 函数不存在');
+            }
+            
+            if (typeof startDiagnosis === 'function') {
+                results.push('✓ startDiagnosis 函数存在');
+            } else {
+                results.push('✗ startDiagnosis 函数不存在');
+            }
+            
+            // 检查诊断步骤数据是否存在
+            if (typeof diagnosisSteps === 'object' && diagnosisSteps !== null) {
+                const types = Object.keys(diagnosisSteps);
+                results.push(`✓ diagnosisSteps 对象存在，包含 ${types.length} 种诊断类型: ${types.join(', ')}`);
+            } else {
+                results.push('✗ diagnosisSteps 对象不存在');
+            }
+            
+            // 检查结果数据是否存在
+            if (typeof results === 'object' && results !== null) {
+                results.push('✓ results 对象存在');
+            } else {
+                results.push('✗ results 对象不存在');
+            }
+            
+            document.getElementById('js-test-result').innerHTML = results.join('<br>');
+        }
+        
+        function testDiagnosis(type) {
+            const results = [];
+            
+            if (diagnosisSteps && diagnosisSteps[type]) {
+                results.push(`✓ ${type} 诊断流程存在，包含 ${diagnosisSteps[type].length} 个步骤`);
+                
+                // 测试第一个步骤
+                const firstStep = diagnosisSteps[type][0];
+                if (firstStep) {
+                    results.push(`✓ 第一个步骤: ${firstStep.question}`);
+                    if (firstStep.options && firstStep.options.length > 0) {
+                        results.push(`✓ 包含 ${firstStep.options.length} 个选项`);
+                    }
+                }
+            } else {
+                results.push(`✗ ${type} 诊断流程不存在`);
+            }
+            
+            document.getElementById('diagnosis-test-result').innerHTML = results.join('<br>');
+        }
+    </script>
+</body>
+</html>

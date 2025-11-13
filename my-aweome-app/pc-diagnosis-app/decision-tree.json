@@ -1,0 +1,832 @@
+{
+  "title": "PC故障诊断决策树",
+  "version": "1.0.0",
+  "root": {
+    "id": "root",
+    "question": "您的电脑遇到了什么问题？",
+    "type": "multiple-choice",
+    "options": [
+      {
+        "id": "boot",
+        "text": "💻 不开机、不通电",
+        "next": "boot-sub"
+      },
+      {
+        "id": "blue-screen",
+        "text": "🟦 蓝屏（BSOD）",
+        "next": "bsod-sub"
+      },
+      {
+        "id": "slow",
+        "text": "🐢 运行卡顿、反应慢",
+        "next": "slow-sub"
+      },
+      {
+        "id": "internet",
+        "text": "🌐 无法上网",
+        "next": "internet-sub"
+      },
+      {
+        "id": "audio",
+        "text": "🔊 没有声音",
+        "next": "audio-sub"
+      },
+      {
+        "id": "heat",
+        "text": "🔥 电脑过热、噪音大",
+        "next": "heat-sub"
+      },
+      {
+        "id": "other",
+        "text": "📝 其他问题",
+        "next": "other-diagnosis-1"
+      }
+    ]
+  },
+  "nodes": {
+    "boot-sub": {
+      "id": "boot-sub",
+      "question": "关于不开机问题，请告诉我更多细节：",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "no-power",
+          "text": "完全没反应，指示灯也不亮",
+          "next": "no-power-result"
+        },
+        {
+          "id": "fan-run",
+          "text": "风扇转动但显示器没信号",
+          "next": "fan-run-result"
+        },
+        {
+          "id": "beep",
+          "text": "有报警声（嘀嘀声）",
+          "next": "beep-result"
+        },
+        {
+          "id": "logo-stuck",
+          "text": "卡在品牌Logo界面",
+          "next": "logo-stuck-result"
+        }
+      ]
+    },
+    "bsod-sub": {
+      "id": "bsod-sub",
+      "question": "关于蓝屏，请告诉我更多细节：",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "random",
+          "text": "频繁随机蓝屏（无规律发生）",
+          "next": "bsod-diagnosis-1"
+        },
+        {
+          "id": "software",
+          "text": "在运行特定软件或游戏时蓝屏",
+          "next": "software-result"
+        },
+        {
+          "id": "driver",
+          "text": "在安装新硬件或驱动后开始蓝屏",
+          "next": "driver-result"
+        },
+        {
+          "id": "code",
+          "text": "蓝屏代码是：______",
+          "next": "code-result"
+        },
+        {
+          "id": "unsure",
+          "text": "我不确定，就是偶尔蓝屏",
+          "next": "unsure-result"
+        }
+      ]
+    },
+    "slow-sub": {
+      "id": "slow-sub",
+      "question": "关于运行卡顿，请告诉我更多细节：",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "startup-slow",
+          "text": "开机速度很慢",
+          "next": "slow-diagnosis-1"
+        },
+        {
+          "id": "program-slow",
+          "text": "打开软件很慢",
+          "next": "slow-diagnosis-1"
+        },
+        {
+          "id": "system-slow",
+          "text": "整个系统都很慢",
+          "next": "slow-diagnosis-1"
+        }
+      ]
+    },
+    "internet-sub": {
+      "id": "internet-sub",
+      "question": "关于网络连接，请告诉我更多细节：",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "wifi-issue",
+          "text": "WiFi连接问题",
+          "next": "internet-diagnosis-1"
+        },
+        {
+          "id": "ethernet-issue",
+          "text": "网线连接问题",
+          "next": "internet-diagnosis-1"
+        },
+        {
+          "id": "browser-issue",
+          "text": "浏览器无法打开网页",
+          "next": "internet-diagnosis-1"
+        }
+      ]
+    },
+    "audio-sub": {
+      "id": "audio-sub",
+      "question": "关于声音问题，请告诉我更多细节：",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "no-audio",
+          "text": "完全没有声音",
+          "next": "audio-diagnosis-1"
+        },
+        {
+          "id": "distorted-audio",
+          "text": "声音断断续续或失真",
+          "next": "audio-diagnosis-1"
+        },
+        {
+          "id": "wrong-output",
+          "text": "声音从错误的设备输出",
+          "next": "audio-diagnosis-1"
+        }
+      ]
+    },
+    "heat-sub": {
+      "id": "heat-sub",
+      "question": "关于过热问题，请告诉我更多细节：",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "cpu-heat",
+          "text": "CPU温度过高",
+          "next": "heat-diagnosis-1"
+        },
+        {
+          "id": "gpu-heat",
+          "text": "显卡温度过高",
+          "next": "heat-diagnosis-1"
+        },
+        {
+          "id": "noise",
+          "text": "风扇噪音很大",
+          "next": "heat-diagnosis-1"
+        }
+      ]
+    },
+    "bsod-diagnosis-1": {
+      "id": "bsod-diagnosis-1",
+      "question": "步骤 1/4：基础软件排查\n电脑最近是否进行过系统更新或安装了新软件？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的",
+          "advice": {
+            "title": "可能性较高：软件冲突或系统更新问题。",
+            "content": "建议操作：\n1. 尝试卸载最近安装的软件：进入\"设置\"->\"应用\"，按安装日期排序，卸载可疑软件。\n2. 尝试卸载最近的质量更新：进入\"设置\"->\"Windows更新\"->\"更新历史记录\"->\"卸载更新\"。\n3. 完成操作后，重启电脑并观察是否解决。"
+          },
+          "next": "bsod-diagnosis-2"
+        },
+        {
+          "id": "no",
+          "text": "没有",
+          "next": "bsod-diagnosis-2"
+        },
+        {
+          "id": "unsure",
+          "text": "我不确定",
+          "next": "bsod-diagnosis-2"
+        }
+      ]
+    },
+    "bsod-diagnosis-2": {
+      "id": "bsod-diagnosis-2",
+      "question": "步骤 2/4：驱动问题排查\n蓝屏是否在您安装某个硬件（如显卡）的驱动程序后开始的？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，我更新了驱动",
+          "next": "bsod-diagnosis-3"
+        },
+        {
+          "id": "no",
+          "text": "不是，我很早就没动过驱动了",
+          "advice": {
+            "title": "可能性很高：驱动程序损坏或与系统不兼容。",
+            "content": "建议操作：\n1. 更新/回滚显卡驱动：建议使用\"驱动精灵\"或\"360驱动大师\"等工具检测并安装稳定版驱动。\n2. 或前往设备管理器：右键点击\"显示适配器\"下的显卡，选择\"更新驱动程序\"或\"回退驱动程序\"。"
+          },
+          "next": "bsod-diagnosis-3"
+        },
+        {
+          "id": "unsure",
+          "text": "我不知道",
+          "advice": {
+            "title": "可能性很高：驱动程序损坏或与系统不兼容。",
+            "content": "建议操作：\n1. 更新/回滚显卡驱动：建议使用\"驱动精灵\"或\"360驱动大师\"等工具检测并安装稳定版驱动。\n2. 或前往设备管理器：右键点击\"显示适配器\"下的显卡，选择\"更新驱动程序\"或\"回退驱动程序\"。"
+          },
+          "next": "bsod-diagnosis-3"
+        }
+      ]
+    },
+    "bsod-diagnosis-3": {
+      "id": "bsod-diagnosis-3",
+      "question": "步骤 3/4：硬件基础检查\n您的电脑使用超过两年了吗？或者机箱内灰尘很多？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，用了很久/灰尘多",
+          "advice": {
+            "title": "可能性：硬件温度过高或接触不良。",
+            "content": "建议操作（需小心）：\n1. 清洁与重新插拔：（请务必拔掉电源线！）打开机箱侧板，用毛刷清理灰尘，并将内存条和显卡拔下来，用橡皮擦拭金色接触部分后重新插紧。\n2. 检查温度：下载\"HWMonitor\"软件，查看CPU和显卡温度是否过高（待机超过60°C需注意）。"
+          },
+          "next": "bsod-final-result"
+        },
+        {
+          "id": "no",
+          "text": "不是，比较新且干净",
+          "next": "bsod-final-result"
+        }
+      ]
+    },
+    "slow-diagnosis-1": {
+      "id": "slow-diagnosis-1",
+      "question": "步骤 1/3：基础检查\n您的电脑开机时间超过5分钟吗？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，开机很慢",
+          "advice": {
+            "title": "可能性：启动项过多或硬盘问题。",
+            "content": "建议操作：\n1. 按下Win+R键，输入msconfig，查看启动项是否过多\n2. 禁用不必要的启动项：在任务管理器的\"启动\"选项卡中，右键点击不需要的启动项并选择\"禁用\"\n3. 检查硬盘健康状态：下载CrystalDiskInfo软件检查硬盘是否有坏道或健康度下降"
+          },
+          "next": "slow-diagnosis-2"
+        },
+        {
+          "id": "no",
+          "text": "不是，主要是运行软件时卡顿",
+          "next": "slow-diagnosis-2"
+        }
+      ]
+    },
+    "slow-diagnosis-2": {
+      "id": "slow-diagnosis-2",
+      "question": "步骤 2/3：资源占用检查\n打开任务管理器(Ctrl+Shift+Esc)，查看CPU、内存或磁盘使用率是否经常达到100%？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，资源占用很高",
+          "advice": {
+            "title": "可能性：后台程序占用过多资源或硬件不足。",
+            "content": "建议操作：\n1. 在任务管理器的\"进程\"选项卡中，按CPU或内存使用率排序，找出占用资源最多的程序\n2. 右键点击占用资源过高的程序，选择\"结束任务\"\n3. 如果是系统进程占用过高，可能需要更新驱动或重装系统"
+          },
+          "next": "slow-diagnosis-3"
+        },
+        {
+          "id": "no",
+          "text": "不是，资源占用看起来正常",
+          "next": "slow-diagnosis-3"
+        }
+      ]
+    },
+    "slow-diagnosis-3": {
+      "id": "slow-diagnosis-3",
+      "question": "步骤 3/3：硬件检查\n您的电脑配置是否较低（如内存小于8GB，或使用机械硬盘）？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，配置较低",
+          "advice": {
+            "title": "可能性：硬件配置不足以满足当前需求。",
+            "content": "建议操作：\n1. 增加内存容量：如当前内存小于8GB，建议升级到16GB\n2. 更换固态硬盘：将系统盘从机械硬盘更换为固态硬盘可大幅提升系统响应速度\n3. 清理系统垃圾：使用磁盘清理工具清理临时文件和系统缓存"
+          },
+          "next": "slow-final-result"
+        },
+        {
+          "id": "no",
+          "text": "不是，配置还可以",
+          "next": "slow-final-result"
+        }
+      ]
+    },
+    "internet-diagnosis-1": {
+      "id": "internet-diagnosis-1",
+      "question": "步骤 1/3：连接检查\n您的网线是否插好，或者WiFi是否已连接到网络？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，已连接但无法上网",
+          "advice": {
+            "title": "可能性：网络配置或驱动问题。",
+            "content": "建议操作：\n1. 检查网络图标是否有红叉或感叹号\n2. 尝试断开WiFi连接后重新连接\n3. 检查其他设备是否能正常上网，以确定是电脑问题还是网络问题"
+          },
+          "next": "internet-diagnosis-2"
+        },
+        {
+          "id": "no",
+          "text": "没有连接网络",
+          "advice": {
+            "title": "请先连接网络。",
+            "content": "建议操作：\n1. 确保网线插紧，网卡指示灯正常闪烁\n2. 点击右下角网络图标，选择可用的WiFi网络并输入密码连接\n3. 如果找不到网络，检查路由器是否正常工作"
+          },
+          "next": "internet-diagnosis-2"
+        }
+      ]
+    },
+    "internet-diagnosis-2": {
+      "id": "internet-diagnosis-2",
+      "question": "步骤 2/3：网络设备检查\n其他设备（如手机）能否正常上网？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，其他设备可以上网",
+          "advice": {
+            "title": "可能性：本机网络设置或驱动问题。",
+            "content": "建议操作：\n1. 重启网络设备：断开路由器电源30秒后重新插上\n2. 重启电脑网卡：在设备管理器中禁用再启用网络适配器\n3. 运行网络疑难解答：右键点击网络图标，选择\"疑难解答\""
+          },
+          "next": "internet-diagnosis-3"
+        },
+        {
+          "id": "no",
+          "text": "不是，其他设备也无法上网",
+          "advice": {
+            "title": "可能性：网络服务提供商或路由器问题。",
+            "content": "建议操作：\n1. 检查路由器指示灯是否正常（通常电源灯和网络灯应常亮或闪烁）\n2. 联系网络服务提供商确认是否有网络故障\n3. 重启路由器：断开电源30秒后重新插上"
+          },
+          "next": "internet-diagnosis-3"
+        }
+      ]
+    },
+    "internet-diagnosis-3": {
+      "id": "internet-diagnosis-3",
+      "question": "步骤 3/3：系统设置检查\n您最近是否更改过网络设置或安装过新软件？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，最近有更改",
+          "advice": {
+            "title": "可能性：设置错误或软件冲突。",
+            "content": "建议操作：\n1. 撤销最近的网络设置更改\n2. 卸载最近安装的可能影响网络的软件\n3. 重置网络设置：以管理员身份运行命令提示符，输入以下命令并回车：\n   netsh winsock reset\n   netsh int ip reset\n   ipconfig /release\n   ipconfig /renew\n   ipconfig /flushdns"
+          },
+          "next": "internet-final-result"
+        },
+        {
+          "id": "no",
+          "text": "没有更改过",
+          "next": "internet-final-result"
+        }
+      ]
+    },
+    "audio-diagnosis-1": {
+      "id": "audio-diagnosis-1",
+      "question": "步骤 1/3：基础检查\n音量是否被静音或调至最低？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，音量有问题",
+          "advice": {
+            "title": "解决方案：调整音量设置。",
+            "content": "建议操作：\n1. 点击任务栏右下角的音量图标\n2. 确保音量滑块未调至最低且未静音\n3. 右键点击音量图标，选择\"打开音量合成器\"\n4. 检查各个应用程序的音量设置，确保未被静音"
+          },
+          "next": "audio-diagnosis-2"
+        },
+        {
+          "id": "no",
+          "text": "音量设置正常",
+          "next": "audio-diagnosis-2"
+        }
+      ]
+    },
+    "audio-diagnosis-2": {
+      "id": "audio-diagnosis-2",
+      "question": "步骤 2/3：设备检查\n您使用的是扬声器还是耳机？设备是否正确连接？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "speaker",
+          "text": "使用扬声器",
+          "advice": {
+            "title": "检查扬声器连接。",
+            "content": "建议操作：\n1. 检查扬声器电源是否打开\n2. 检查音频线是否牢固连接到电脑\n3. 尝试将扬声器连接到其他设备测试是否正常工作"
+          },
+          "next": "audio-diagnosis-3"
+        },
+        {
+          "id": "headphone",
+          "text": "使用耳机",
+          "advice": {
+            "title": "检查耳机连接。",
+            "content": "建议操作：\n1. 检查耳机插头是否完全插入音频接口\n2. 尝试将耳机插入其他设备测试是否正常工作\n3. 如果是USB耳机，检查USB接口是否正常"
+          },
+          "next": "audio-diagnosis-3"
+        },
+        {
+          "id": "both",
+          "text": "两种设备都试过，都没声音",
+          "next": "audio-diagnosis-3"
+        }
+      ]
+    },
+    "audio-diagnosis-3": {
+      "id": "audio-diagnosis-3",
+      "question": "步骤 3/3：驱动和设置检查\n您最近是否更新过系统或安装过新软件？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，最近有更新",
+          "advice": {
+            "title": "可能性：驱动问题或设置更改。",
+            "content": "建议操作：\n1. 运行音频故障排除程序：右键点击音量图标，选择\"疑难解答\"\n2. 更新或回滚音频驱动：右键点击\"此电脑\"->\"管理\"->\"设备管理器\"->\"声音、视频和游戏控制器\"，右键点击音频设备选择\"更新驱动程序\"或\"回退驱动程序\"\n3. 重启Windows音频服务：按Win+R，输入services.msc，找到\"Windows Audio\"服务，右键点击选择\"重新启动\""
+          },
+          "next": "audio-final-result"
+        },
+        {
+          "id": "no",
+          "text": "没有更新过",
+          "next": "audio-final-result"
+        }
+      ]
+    },
+    "heat-diagnosis-1": {
+      "id": "heat-diagnosis-1",
+      "question": "步骤 1/3：基础检查\n您的电脑使用多长时间了？机箱内是否有很多灰尘？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "使用很久了，灰尘很多",
+          "advice": {
+            "title": "可能性：灰尘堆积导致散热不良。",
+            "content": "建议操作（需小心）：\n1. 完全断电后，打开机箱侧板\n2. 使用毛刷或压缩空气罐清理风扇和散热器上的灰尘\n3. 清理CPU和显卡散热器之间的灰尘\n4. 注意不要损坏任何硬件组件"
+          },
+          "next": "heat-diagnosis-2"
+        },
+        {
+          "id": "no",
+          "text": "比较新，灰尘不多",
+          "next": "heat-diagnosis-2"
+        }
+      ]
+    },
+    "heat-diagnosis-2": {
+      "id": "heat-diagnosis-2",
+      "question": "步骤 2/3：风扇检查\n风扇转速是否异常高？是否有异响或震动？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，风扇转速高且有异响",
+          "advice": {
+            "title": "可能性：风扇故障或轴承老化。",
+            "content": "建议操作：\n1. 下载HWMonitor软件检查CPU和显卡温度是否过高（待机超过60°C需注意）\n2. 给风扇轴承添加润滑油：关机后在风扇轴心处滴1-2滴缝纫机油\n3. 如噪音持续，可能需要更换风扇"
+          },
+          "next": "heat-diagnosis-3"
+        },
+        {
+          "id": "no",
+          "text": "风扇转速正常，无异响",
+          "next": "heat-diagnosis-3"
+        }
+      ]
+    },
+    "heat-diagnosis-3": {
+      "id": "heat-diagnosis-3",
+      "question": "步骤 3/3：散热检查\n您的电脑是否经常运行大型软件或游戏？",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "yes",
+          "text": "是的，经常高负载运行",
+          "advice": {
+            "title": "可能性：散热系统不足以应对高负载。",
+            "content": "建议操作：\n1. 改善机箱通风：增加机箱风扇或改善风道设计\n2. 更换散热硅脂：CPU和显卡温度过高时需要更换导热硅脂\n3. 考虑升级散热器：如使用更强的风冷或水冷散热器\n4. 降低负载：避免同时运行多个高负载程序"
+          },
+          "next": "heat-final-result"
+        },
+        {
+          "id": "no",
+          "text": "不经常高负载运行",
+          "next": "heat-final-result"
+        }
+      ]
+    },
+    "other-diagnosis-1": {
+      "id": "other-diagnosis-1",
+      "question": "请描述您遇到的具体问题：",
+      "type": "multiple-choice",
+      "options": [
+        {
+          "id": "hardware",
+          "text": "疑似硬件问题",
+          "advice": {
+            "title": "建议进行硬件检查。",
+            "content": "建议操作：\n1. 仔细观察问题发生时的现象\n2. 记录问题发生的频率和条件\n3. 检查设备管理器中是否有硬件冲突或错误\n4. 运行系统自带的硬件诊断工具"
+          },
+          "next": "other-final-result"
+        },
+        {
+          "id": "software",
+          "text": "疑似软件问题",
+          "advice": {
+            "title": "建议进行软件检查。",
+            "content": "建议操作：\n1. 记录问题发生时正在运行的软件\n2. 尝试在安全模式下启动电脑，看问题是否仍然存在\n3. 运行杀毒软件进行全面扫描\n4. 检查最近安装的软件或更新"
+          },
+          "next": "other-final-result"
+        },
+        {
+          "id": "unclear",
+          "text": "不确定具体原因",
+          "advice": {
+            "title": "建议系统性排查。",
+            "content": "建议操作：\n1. 详细记录问题发生的场景和频率\n2. 尝试在安全模式下启动电脑\n3. 运行系统自带的诊断工具\n4. 如问题严重，建议寻求专业技术支持"
+          },
+          "next": "other-final-result"
+        }
+      ]
+    }
+  },
+  "results": {
+    "no-power-result": {
+      "summary": "完全没反应通常是电源或主板问题。",
+      "possibilities": [
+        {"text": "电源供应器故障", "level": "high"},
+        {"text": "主板问题", "level": "high"},
+        {"text": "电源线或插座问题", "level": "high"},
+        {"text": "电源开关问题", "level": "medium"},
+        {"text": "内部连线问题", "level": "medium"}
+      ],
+      "advice": "1. 🔌 检查电源线是否插好，尝试更换插座\n   • 用其他设备测试插座是否正常供电\n   • 检查主机后方电源开关是否打开\n   • 检查电源线两端是否牢固连接\n\n2. ⚡ 检查电源供应器\n   • 观察主板上的电源指示灯是否常亮\n   • 检查电源供应器是否有异味或异常发热\n   • 听是否有风扇转动声音\n\n3. 🔧 基础硬件检查\n   • 拔掉所有外设（USB设备、打印机等），只保留显示器和电源连接\n   • 打开机箱侧盖，检查内部电源线是否松动\n   • 重新插拔主板24pin和CPU 8pin电源线\n\n4. 🧪 进阶测试\n   • 如有条件，可尝试更换电源供应器测试\n   • 短接主板电源开关针脚测试是否能开机\n   • 检查主板上是否有明显的烧毁痕迹\n\n5. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，建议寻求专业技术支持\n   • 送修时可说明：电脑完全不通电，已检查电源线和插座，怀疑电源或主板故障"
+    },
+    "fan-run-result": {
+      "summary": "风扇转动但无显示通常与内存或显卡有关。",
+      "possibilities": [
+        {"text": "内存条接触不良", "level": "high"},
+        {"text": "显卡故障", "level": "high"},
+        {"text": "显示器连接问题", "level": "high"},
+        {"text": "CPU问题", "level": "medium"},
+        {"text": "主板供电问题", "level": "medium"}
+      ],
+      "advice": "1. 🖥️ 检查显示器连接\n   • 检查显示器电源是否打开，电源指示灯是否亮起\n   • 检查视频线（HDMI/DP/VGA/DVI）是否插牢，尝试更换一根视频线\n   • 确认显示器输入源设置是否正确（如HDMI1/HDMI2等）\n   • 将显示器连接到其他设备测试是否正常工作\n\n2. 💾 重新插拔内存条\n   • 完全断电后，打开机箱侧盖\n   • 取出内存条，用橡皮擦擦拭金手指部分\n   • 重新插入内存条，确保完全插入插槽并听到咔嚓声\n   • 如有多条内存，尝试只插一条内存启动（优先插在第2个插槽）\n\n3. 🎮 检查显卡\n   • 检查显卡是否完全插入PCI-E插槽\n   • 重新插拔显卡，确保固定牢固\n   • 检查显卡外接电源线是否插好（6pin/8pin）\n   • 如有集成显卡，可拔掉独立显卡，将显示器连接到主板视频输出口测试\n\n4. 🔌 检查电源连接\n   • 检查主板24pin和CPU 8pin/4pin电源线是否插紧\n   • 检查是否有5伏待机电压（可用万用表测量）\n\n5. 🧪 最小系统测试\n   • 只保留主板、CPU、一条内存、电源，移除其他所有设备\n   • 尝试开机，看是否能进入BIOS\n   • 如能进入BIOS，再逐一添加设备排查\n\n6. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，建议寻求专业技术支持\n   • 送修时可说明：电脑能通电风扇转动，但显示器无信号，已检查内存、显卡和连线"
+    },
+    "beep-result": {
+      "summary": "报警声代码可以帮助定位硬件问题。",
+      "possibilities": [
+        {"text": "内存故障", "level": "high"},
+        {"text": "显卡故障", "level": "high"},
+        {"text": "主板问题", "level": "high"},
+        {"text": "CPU问题", "level": "medium"},
+        {"text": "BIOS设置问题", "level": "medium"}
+      ],
+      "advice": "1. 🎵 识别报警声模式\n   • 记录报警声的长短和间隔模式\n   • 常见报警声含义：\n     - 连续长鸣：内存条未插紧或损坏\n     - 一长两短：显示器或显卡错误\n     - 短促重复：内存校验错误或显卡接触不良\n     - 一长一短：内存或主板错误\n     - 不断响：电源、显示器未和显示卡连接好\n\n2. 💾 内存问题排查\n   • 完全断电后，打开机箱侧盖\n   • 重新插拔内存条，确保完全插入插槽\n   • 用橡皮擦擦拭内存条金手指部分\n   • 如有多条内存，尝试只插一条内存启动\n   • 更换内存插槽测试\n\n3. 🎮 显卡问题排查\n   • 重新插拔显卡，确保完全插入PCI-E插槽\n   • 检查显卡外接电源线是否插好\n   • 如有集成显卡，可拔掉独立显卡测试\n   • 检查显示器连接线是否插牢\n\n4. 🔧 BIOS设置检查\n   • 清除CMOS：取出主板电池等待5分钟后重新安装\n   • 或使用主板上的CLR_CMOS跳线清除设置\n   • 重新启动电脑，进入BIOS恢复默认设置\n\n5. 🧪 进阶测试\n   • 检查CPU是否安装正确，散热器是否牢固\n   • 检查主板供电线（24pin和CPU供电）是否插紧\n   • 如有条件，可尝试替换法测试内存、显卡等硬件\n\n6. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，建议寻求专业技术支持\n   • 送修时可说明：电脑开机有报警声，具体为XX模式，怀疑内存或显卡故障"
+    },
+    "logo-stuck-result": {
+      "summary": "卡在Logo界面可能与硬件或系统有关。",
+      "possibilities": [
+        {"text": "硬盘故障", "level": "high"},
+        {"text": "系统文件损坏", "level": "high"},
+        {"text": "外接设备冲突", "level": "high"},
+        {"text": "BIOS设置问题", "level": "medium"},
+        {"text": "内存问题", "level": "medium"}
+      ],
+      "advice": "1. 🔌 排除外接设备\n   • 拔掉所有USB设备（键盘、鼠标、U盘、移动硬盘等）\n   • 断开打印机、扫描仪等外接设备\n   • 只保留显示器和电源连接，重新开机测试\n   • 如能正常启动，再逐一连接设备排查冲突\n\n2. 💾 检查内存条\n   • 完全断电后，打开机箱侧盖\n   • 重新插拔内存条，确保完全插入插槽\n   • 如有多条内存，尝试只插一条内存启动\n   • 用橡皮擦擦拭内存条金手指部分\n\n3. 💻 BIOS设置检查\n   • 开机时连续按DEL/F2键尝试进入BIOS\n   • 检查启动顺序是否正确，系统硬盘是否被识别\n   • 恢复BIOS默认设置：选择Load Optimized Defaults\n   • 保存并退出，重新启动电脑\n\n4. 🔧 硬盘问题排查\n   • 进入BIOS查看硬盘是否被识别\n   • 检查SATA数据线和电源线是否插紧\n   • 尝试更换SATA接口或数据线\n   • 如有条件，可将硬盘连接到其他电脑测试\n\n5. 🧪 系统修复\n   • 使用Windows安装盘/U盘启动\n   • 选择\"修复计算机\"->\"疑难解答\"->\"高级选项\"\n   • 尝试启动修复、系统还原或命令提示符修复\n   • 命令提示符中可尝试：\n     - sfc /scannow（扫描系统文件）\n     - bootrec /fixmbr（修复主引导记录）\n     - bootrec /fixboot（修复启动扇区）\n     - bootrec /rebuildbcd（重建启动配置）\n\n6. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，建议寻求专业技术支持\n   • 送修时可说明：电脑开机卡在品牌Logo界面，已尝试排除外设和恢复BIOS设置，怀疑硬盘或系统故障"
+    },
+    "software-result": {
+      "summary": "特定软件导致的蓝屏通常与兼容性有关。",
+      "possibilities": [
+        {"text": "软件与系统资源冲突", "level": "high"},
+        {"text": "显卡驱动不兼容", "level": "medium"},
+        {"text": "内存不足", "level": "low"}
+      ],
+      "advice": "1. 尝试在安全模式下运行该软件\n2. 更新显卡驱动到最新版本\n3. 检查软件的系统要求是否匹配\n4. 联系软件厂商获取技术支持"
+    },
+    "driver-result": {
+      "summary": "驱动更新后的蓝屏通常是兼容性问题。",
+      "possibilities": [
+        {"text": "驱动程序不兼容", "level": "high"},
+        {"text": "驱动程序损坏", "level": "high"},
+        {"text": "硬件不兼容", "level": "medium"}
+      ],
+      "advice": "1. 进入安全模式，卸载刚安装的驱动\n2. 从官网下载官方驱动程序\n3. 选择稳定性优先的版本\n4. 必要时暂时移除新硬件"
+    },
+    "code-result": {
+      "summary": "蓝屏代码是定位问题的关键信息。",
+      "possibilities": [
+        {"text": "具体原因取决于蓝屏代码", "level": "high"},
+        {"text": "硬件故障", "level": "medium"},
+        {"text": "系统文件损坏", "level": "medium"}
+      ],
+      "advice": "1. 搜索该蓝屏代码查找解决方案\n2. 运行Windows内存诊断工具\n3. 使用sfc /scannow命令修复系统文件\n4. 重点检查代码指向的特定硬件"
+    },
+    "unsure-result": {
+      "summary": "不确定具体情况时需要系统性排查。",
+      "possibilities": [
+        {"text": "内存问题", "level": "high"},
+        {"text": "驱动程序问题", "level": "high"},
+        {"text": "过热问题", "level": "medium"}
+      ],
+      "advice": "1. 按照诊断流程逐步排查\n2. 记录蓝屏时间和相关操作\n3. 保持系统和驱动更新到推荐版本\n4. 定期清理机箱内灰尘"
+    },
+    "slow-final-result": {
+      "summary": "根据您的描述，经过基础排查后问题依旧，可能需要进一步优化。",
+      "possibilities": [
+        {"text": "硬件配置不足", "level": "high"},
+        {"text": "系统垃圾过多", "level": "high"},
+        {"text": "后台程序占用资源", "level": "medium"},
+        {"text": "病毒或恶意软件", "level": "medium"}
+      ],
+      "advice": "1. 🧹 系统优化\n   • 清理系统垃圾文件：使用磁盘清理工具\n   • 整理硬盘碎片：机械硬盘需要定期整理碎片\n   • 卸载不必要的软件\n\n2. 💾 硬件升级\n   • 增加内存容量：如当前内存小于8GB，建议升级到16GB\n   • 更换固态硬盘：将系统盘从机械硬盘更换为固态硬盘可大幅提升系统响应速度\n\n3. 🔍 深度检查\n   • 运行杀毒软件全面扫描\n   • 检查启动项：禁用不必要的开机启动程序\n   • 检查计划任务：禁用不必要的计划任务\n\n4. 🔄 系统重装\n   • 如问题严重且长期存在，可考虑备份数据后重装系统\n   • 重装前请务必备份重要数据\n\n5. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，建议寻求专业技术支持"
+    },
+    "internet-final-result": {
+      "summary": "根据您的描述，经过基础排查后问题依旧，可能需要专业技术支持。",
+      "possibilities": [
+        {"text": "网络驱动问题", "level": "high"},
+        {"text": "系统网络组件损坏", "level": "high"},
+        {"text": "路由器或ISP问题", "level": "medium"},
+        {"text": "防火墙或安全软件拦截", "level": "medium"}
+      ],
+      "advice": "1. 🔧 网络重置\n   • 重置网络设置：以管理员身份运行命令提示符，输入以下命令并回车：\n     netsh winsock reset\n     netsh int ip reset\n     ipconfig /release\n     ipconfig /renew\n     ipconfig /flushdns\n   • 重启电脑后检查网络是否恢复正常\n\n2. 🔄 驱动更新\n   • 更新网络适配器驱动：在设备管理器中找到网络适配器，右键点击选择\"更新驱动程序\"\n   • 如更新后问题依旧，可尝试回退到之前的驱动版本\n\n3. 🔍 防火墙和安全软件检查\n   • 临时关闭防火墙和杀毒软件，测试网络是否恢复正常\n   • 检查安全软件的网络防护设置，确保未错误拦截网络连接\n\n4. 📶 路由器设置\n   • 登录路由器管理界面，检查是否有MAC地址过滤等限制设置\n   • 尝试重置路由器到出厂设置后重新配置\n\n5. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，建议联系网络服务提供商或寻求专业技术支持"
+    },
+    "audio-final-result": {
+      "summary": "根据您的描述，经过基础排查后问题依旧，可能需要进一步检查。",
+      "possibilities": [
+        {"text": "音频驱动问题", "level": "high"},
+        {"text": "硬件故障", "level": "high"},
+        {"text": "系统音频服务异常", "level": "medium"},
+        {"text": "音频编解码器问题", "level": "medium"}
+      ],
+      "advice": "1. 🔧 驱动和系统检查\n   • 重新安装音频驱动：在设备管理器中卸载音频设备，重启电脑让系统重新安装\n   • 运行音频故障排除程序：右键点击音量图标，选择\"疑难解答\"\n   • 重启Windows音频服务：按Win+R，输入services.msc，找到\"Windows Audio\"服务，右键点击选择\"重新启动\"\n\n2. 🔄 系统修复\n   • 运行系统文件检查：以管理员身份运行命令提示符，输入sfc /scannow并回车\n   • 检查Windows更新：确保系统已更新到最新版本\n\n3. 🔍 硬件测试\n   • 尝试使用其他音频设备（不同耳机或扬声器）测试\n   • 检查主板上的音频接口是否有物理损坏\n\n4. 🛠️ 进阶操作\n   • 检查BIOS中的音频设置是否启用\n   • 如使用独立声卡，检查声卡是否正确安装\n\n5. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，可能是硬件故障，建议寻求专业技术支持"
+    },
+    "heat-final-result": {
+      "summary": "根据您的描述，经过基础排查后问题依旧，可能需要专业维护。",
+      "possibilities": [
+        {"text": "散热系统老化", "level": "high"},
+        {"text": "风扇轴承磨损", "level": "high"},
+        {"text": "导热硅脂干涸", "level": "medium"},
+        {"text": "机箱风道设计不良", "level": "medium"}
+      ],
+      "advice": "1. 🧹 深度清洁\n   • 彻底清理机箱内所有风扇和散热器上的灰尘\n   • 清理CPU和显卡散热器之间的灰尘\n   • 使用压缩空气罐进行深度清洁\n\n2. 🔧 硬件维护\n   • 更换散热硅脂：CPU和显卡温度过高时需要更换导热硅脂\n   • 给风扇轴承添加润滑油：在风扇轴心处滴1-2滴缝纫机油\n   • 检查风扇是否需要更换\n\n3. 🌬️ 改善散热\n   • 增加机箱风扇：改善机箱内部风道\n   • 调整风扇转速曲线：在BIOS或风扇控制软件中调整\n   • 考虑升级散热器：如使用更强的风冷或水冷散热器\n\n4. 📊 监控温度\n   • 下载HWMonitor等软件持续监控温度\n   • 记录高负载时的温度数据\n\n5. 📞 寻求专业帮助\n   • 如果以上步骤都无法解决问题，建议寻求专业技术支持，可能需要专业清洁或更换散热设备"
+    },
+    "other-final-result": {
+      "summary": "对于其他未列出的问题，建议采用系统性排查方法。",
+      "possibilities": [
+        {"text": "硬件故障", "level": "medium"},
+        {"text": "软件冲突", "level": "medium"},
+        {"text": "系统问题", "level": "medium"}
+      ],
+      "advice": "1. 📋 详细记录\n   • 详细记录问题发生的场景和频率\n   • 记录问题发生时正在运行的软件\n   • 截图或拍照记录错误信息\n\n2. 🔍 系统检查\n   • 尝试在安全模式下启动电脑\n   • 运行系统自带的诊断工具\n   • 运行杀毒软件进行全面扫描\n\n3. 🔄 软件排查\n   • 检查最近安装的软件或更新\n   • 卸载最近安装的可疑软件\n   • 运行系统文件检查：以管理员身份运行命令提示符，输入sfc /scannow并回车\n\n4. 🛠️ 硬件排查\n   • 检查设备管理器中是否有硬件冲突或错误\n   • 重新插拔内存条和显卡\n   • 检查所有内部连线是否牢固\n\n5. 📞 寻求专业帮助\n   • 如问题严重或无法自行解决，建议寻求专业技术支持"
+    },
+    "startup-slow-result": {
+      "summary": "开机慢通常与启动项或硬盘有关。",
+      "possibilities": [
+        {"text": "启动项过多", "level": "high"},
+        {"text": "硬盘老化", "level": "high"},
+        {"text": "系统文件损坏", "level": "medium"}
+      ],
+      "advice": "1. 禁用不必要的启动项\n2. 检查硬盘健康状态\n3. 清理系统垃圾文件\n4. 考虑升级到固态硬盘"
+    },
+    "program-slow-result": {
+      "summary": "软件启动慢可能与内存或软件本身有关。",
+      "possibilities": [
+        {"text": "内存不足", "level": "high"},
+        {"text": "软件问题", "level": "high"},
+        {"text": "硬盘碎片化", "level": "medium"}
+      ],
+      "advice": "1. 关闭其他不必要程序\n2. 增加内存容量\n3. 重新安装问题软件\n4. 整理硬盘碎片"
+    },
+    "system-slow-result": {
+      "summary": "整体系统慢可能有多种原因。",
+      "possibilities": [
+        {"text": "病毒感染", "level": "high"},
+        {"text": "硬盘空间不足", "level": "high"},
+        {"text": "内存不足", "level": "medium"}
+      ],
+      "advice": "1. 运行杀毒软件全面扫描\n2. 清理磁盘空间\n3. 增加内存容量\n4. 考虑重装系统"
+    },
+    "wifi-issue-result": {
+      "summary": "WiFi连接问题通常与路由器或网卡有关。",
+      "possibilities": [
+        {"text": "路由器问题", "level": "high"},
+        {"text": "网卡驱动问题", "level": "high"},
+        {"text": "信号干扰", "level": "medium"}
+      ],
+      "advice": "1. 重启路由器和电脑\n2. 更新网卡驱动程序\n3. 检查附近是否有信号干扰源\n4. 尝试手动设置IP地址"
+    },
+    "ethernet-issue-result": {
+      "summary": "网线连接问题通常与硬件连接有关。",
+      "possibilities": [
+        {"text": "网线故障", "level": "high"},
+        {"text": "网卡问题", "level": "high"},
+        {"text": "路由器/交换机问题", "level": "medium"}
+      ],
+      "advice": "1. 更换网线测试\n2. 检查网线接口是否松动\n3. 更新网卡驱动程序\n4. 尝试其他网络端口"
+    },
+    "browser-issue-result": {
+      "summary": "浏览器问题可能与设置或网络有关。",
+      "possibilities": [
+        {"text": "DNS设置问题", "level": "high"},
+        {"text": "浏览器设置问题", "level": "high"},
+        {"text": "防火墙/杀毒软件拦截", "level": "medium"}
+      ],
+      "advice": "1. 更改DNS服务器地址\n2. 重置浏览器设置\n3. 临时关闭防火墙测试\n4. 清除浏览器缓存和Cookie"
+    },
+    "no-audio-result": {
+      "summary": "完全没有声音通常与设置或驱动有关。",
+      "possibilities": [
+        {"text": "音量设置问题", "level": "high"},
+        {"text": "音频驱动问题", "level": "high"},
+        {"text": "硬件故障", "level": "medium"}
+      ],
+      "advice": "1. 检查音量是否静音\n2. 更新音频驱动程序\n3. 检查音频服务是否正常运行\n4. 尝试使用其他音频设备"
+    },
+    "distorted-audio-result": {
+      "summary": "声音异常通常与驱动或硬件有关。",
+      "possibilities": [
+        {"text": "音频驱动问题", "level": "high"},
+        {"text": "音频硬件问题", "level": "high"},
+        {"text": "干扰问题", "level": "medium"}
+      ],
+      "advice": "1. 更新音频驱动程序\n2. 检查音频线缆连接\n3. 远离电磁干扰源\n4. 尝试使用其他音频设备"
+    },
+    "wrong-output-result": {
+      "summary": "声音输出设备错误通常与设置有关。",
+      "possibilities": [
+        {"text": "默认设备设置问题", "level": "high"},
+        {"text": "多个音频设备冲突", "level": "high"},
+        {"text": "驱动问题", "level": "medium"}
+      ],
+      "advice": "1. 在声音设置中更改默认设备\n2. 禁用不需要的音频设备\n3. 更新音频驱动程序\n4. 重启音频服务"
+    },
+    "cpu-heat-result": {
+      "summary": "CPU过热通常与散热系统有关。",
+      "possibilities": [
+        {"text": "散热器灰尘堆积", "level": "high"},
+        {"text": "散热硅脂干涸", "level": "high"},
+        {"text": "CPU风扇故障", "level": "medium"}
+      ],
+      "advice": "1. 清理散热器灰尘\n2. 更换散热硅脂\n3. 检查CPU风扇转速\n4. 改善机箱通风"
+    },
+    "gpu-heat-result": {
+      "summary": "显卡过热通常与散热系统有关。",
+      "possibilities": [
+        {"text": "显卡散热器灰尘堆积", "level": "high"},
+        {"text": "机箱风道不畅", "level": "high"},
+        {"text": "显卡风扇故障", "level": "medium"}
+      ],
+      "advice": "1. 清理显卡散热器灰尘\n2. 改善机箱风道设计\n3. 检查显卡风扇转速\n4. 考虑降低显卡负载"
+    },
+    "noise-result": {
+      "summary": "风扇噪音大通常与积尘或老化有关。",
+      "possibilities": [
+        {"text": "风扇积尘", "level": "high"},
+        {"text": "风扇轴承老化", "level": "high"},
+        {"text": "风扇转速过高", "level": "medium"}
+      ],
+      "advice": "1. 清理风扇灰尘\n2. 给风扇轴承添加润滑油\n3. 调整风扇转速曲线\n4. 必要时更换风扇"
+    },
+    "bsod-final-result": {
+      "summary": "根据您的描述，经过基础排查后问题依旧，故障根源可能较深。",
+      "possibilities": [
+        {"text": "内存条故障", "level": "high"},
+        {"text": "电源供电不稳", "level": "medium"},
+        {"text": "主板或CPU问题", "level": "low"}
+      ],
+      "advice": "1. 🛠️ 进阶自查：如果您有动手能力，可以尝试\"替换法\"，比如用好的内存条替换当前的内存进行测试。\n2. 📞 寻求专业帮助：鉴于问题可能涉及核心硬件，我们强烈建议您将电脑送至专业的维修店进行检测，以避免自行操作造成更大损失。\n3. 💬 送修时您可以这样说：\"师傅，电脑频繁蓝屏，我初步排查过软件和驱动，也清洁过内存了，怀疑是内存或电源问题，请您帮忙重点检测一下。\""
+    },
+    "other-result": {
+      "summary": "对于其他未列出的问题，建议采用系统性排查方法。",
+      "possibilities": [
+        {"text": "硬件故障", "level": "medium"},
+        {"text": "软件冲突", "level": "medium"},
+        {"text": "系统问题", "level": "medium"}
+      ],
+      "advice": "1. 详细记录问题发生的场景和频率\n2. 尝试在安全模式下启动电脑\n3. 运行系统自带的诊断工具\n4. 如问题严重，建议寻求专业技术支持"
+    }
+  }
+}

@@ -1,0 +1,236 @@
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* 页面布局 */
+.page {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 标题样式 */
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* 选项按钮样式 */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.option-btn, .back-btn, .share-btn, .next-btn {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.option-btn:hover, .back-btn:hover, .share-btn:hover, .next-btn:hover {
+    background-color: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.option-btn:active, .back-btn:active, .share-btn:active, .next-btn:active {
+    transform: translateY(0);
+}
+
+/* 特殊按钮样式 */
+.back-btn {
+    background-color: #ff6b6b;
+    color: white;
+    margin-top: 20px;
+}
+
+.share-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.next-btn {
+    background-color: #2196f3;
+    color: white;
+    margin-top: 20px;
+}
+
+/* 进度条样式 */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+/* 诊断建议样式 */
+.diagnosis-advice {
+    background-color: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.diagnosis-advice h3 {
+    color: #0d47a1;
+    margin-bottom: 10px;
+}
+
+.diagnosis-advice ul {
+    padding-left: 20px;
+}
+
+.diagnosis-advice li {
+    margin-bottom: 8px;
+}
+
+/* 结果页面样式 */
+.result-summary {
+    background-color: #fff3e0;
+    border-left: 4px solid #ff9800;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.possibility-list {
+    margin: 20px 0;
+}
+
+.possibility-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.possibility-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.high {
+    color: #f44336;
+}
+
+.medium {
+    color: #ff9800;
+}
+
+.low {
+    color: #4caf50;
+}
+
+.final-advice {
+    background-color: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.final-advice h3 {
+    color: #1b5e20;
+    margin-bottom: 10px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.actions .back-btn, .actions .share-btn {
+    flex: 1;
+    margin-top: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+    
+    .option-btn, .back-btn, .share-btn, .next-btn {
+        padding: 12px 15px;
+        font-size: 0.9rem;
+    }
+    
+    .actions {
+        flex-direction: column;
+    }
+}
